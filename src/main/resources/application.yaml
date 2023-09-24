@@ -1,0 +1,9 @@
+medicalLessThanFiveYears: 0.6
+medicalFromFiveToEightYears: 0.8
+medicalLessThanEightYears: 1
+experienceLessThanFiveYears: 5.0
+experienceFromFiveToEightYears: 8.0
+
+logging:
+  level:
+    ru.podgoretskaya: DEBUG

@@ -1,5 +1,12 @@
 package ru.podgoretskaya.accounting.service;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import ru.podgoretskaya.accounting.dto.AccountingDTO;
 import ru.podgoretskaya.accounting.dto.PersonDTO;
 import ru.podgoretskaya.accounting.util.DayUtils;
 
@@ -7,15 +14,32 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
+@Service
+@Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
+public class AccountingService implements CalculationSalary, DayCalculation {
+    @Value("${medicalLessThanFiveYears}")
+    private BigDecimal medicalLessThanFiveYears;
+    @Value("${medicalFromFiveToEightYears}")
+    private BigDecimal medicalFromFiveToEightYears;
+    @Value("${medicalLessThanEightYears}")
+    private BigDecimal medicalLessThanEightYears;
+    @Value("${experienceLessThanFiveYears}")
+    private Double experienceLessThanFiveYears;
+    @Value("${experienceFromFiveToEightYears}")
+    private Double experienceFromFiveToEightYears;
 
-public class AccountanService implements CalculationSalary, DayCalculation {
-    private final BigDecimal medicalLessThanFiveYears = BigDecimal.valueOf(0.6);
-    private final BigDecimal medicalFromSixToEightYears = BigDecimal.valueOf(0.8);
-    private final BigDecimal medicalLessThanEightYears = BigDecimal.valueOf(1);
-    private final Double experienceLessThanFiveYears = 5.0;
-    private final Double experienceFromSixToEightYears = 8.0;
-
-    PersonService ps = new PersonService();
+    public AccountingDTO jsonCollecting(PersonDTO p) {
+        AccountingDTO accountingDTO = new AccountingDTO();
+        accountingDTO.setWorkDays(calculationWorkDay(p));
+        accountingDTO.setSalaryOfWorkDays(calculationSalary(p));
+        accountingDTO.setSalaryOfVacation(calculationSalaryOfVacation(p));
+        accountingDTO.setSalaryOfSickDays(calculationSalaryOfSickDays(p));
+        accountingDTO.setDaysOfVacation(daysOfVacation(p));
+        accountingDTO.setDaysOfSickDays(daysOfSickDays(p));
+        return accountingDTO;
+    }
 
     @Override
     public BigDecimal calculationSalary(PersonDTO p) {// считает зп за отработанные дни
@@ -32,8 +56,8 @@ public class AccountanService implements CalculationSalary, DayCalculation {
         long sickDays = DayUtils.countOfSickDays(p, previous.getMonth());
         if (p.getWorkExperienceCurrent() < experienceLessThanFiveYears) {
             salaryOfSickDays = medicalLessThanFiveYears.multiply(BigDecimal.valueOf(sickDays)).multiply(salary);
-        } else if ((p.getWorkExperienceCurrent() > experienceLessThanFiveYears) && (p.getWorkExperienceCurrent() < experienceFromSixToEightYears)) {
-            salaryOfSickDays = medicalFromSixToEightYears.multiply(BigDecimal.valueOf(sickDays)).multiply(salary);
+        } else if ((p.getWorkExperienceCurrent() > experienceLessThanFiveYears) && (p.getWorkExperienceCurrent() < experienceFromFiveToEightYears)) {
+            salaryOfSickDays = medicalFromFiveToEightYears.multiply(BigDecimal.valueOf(sickDays)).multiply(salary);
         } else {
             salaryOfSickDays = medicalLessThanEightYears.multiply(BigDecimal.valueOf(sickDays)).multiply(salary);
         }

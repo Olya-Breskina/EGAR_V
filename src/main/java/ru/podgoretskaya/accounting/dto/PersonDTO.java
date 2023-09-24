@@ -33,9 +33,11 @@ public class PersonDTO  {
     private GradeEnam grade;
 
     @Schema(description = "стаж")
+    @NonNull
     private Double workExperienceCurrent;
 
     @Schema(description = "зарплата")
+    @NonNull
     private BigDecimal salary;
 
     @Schema(description = "отпуск")
