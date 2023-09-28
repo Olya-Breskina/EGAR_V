@@ -7,9 +7,9 @@ import lombok.ToString;
 import java.time.LocalDate;
 
 @Data
-@Schema(description = "отпуск")
+@Schema(description = "отгул")
 @ToString
-public class Vacation {
-    private LocalDate start;
-    private LocalDate end;
+
+public class DayOff {
+    private LocalDate date;
 }

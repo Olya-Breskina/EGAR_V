@@ -24,11 +24,24 @@ public class AccountingDTO {
     @Schema(description = "отпускные")
     private BigDecimal salaryOfVacation;
 
+    @Schema(description = "был в отгуле х дней")
+    private long daysOfDayOff;
+
+    @Schema(description = "оплата отгула")
+    private BigDecimal salaryOfDayOff;
+
     @Schema(description = "был на больничном х дней")
-    private long daysOfSickDays;
+    private long daysOfSickDay;
 
     @Schema(description = "больничные")
-    private BigDecimal salaryOfSickDays;
+    private BigDecimal salaryOfSickDay;
 
+    @Schema(description = "сумма грязными")
+    private BigDecimal salaryGROSS;
 
+    @Schema(description = "подоходный налог  - 13%")
+    private BigDecimal tax;
+
+    @Schema(description = "сумма чистыми")
+    private BigDecimal salaryOnHandy;
 }

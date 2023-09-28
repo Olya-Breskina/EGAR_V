@@ -10,4 +10,6 @@ public interface CalculationSalary {
     BigDecimal calculationSalaryOfSickDays(PersonDTO p);
 
     BigDecimal calculationSalaryOfVacation(PersonDTO p);
+
+    BigDecimal calculationSalaryOfDayOff(PersonDTO p);
 }

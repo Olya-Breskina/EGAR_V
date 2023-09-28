@@ -1,5 +1,5 @@
 package ru.podgoretskaya.accounting.dto.enams;
 
-public enum GradeEnam {
+public enum GradeEnum {
     JUNIOR, MIDDLE, SENIOR
 }

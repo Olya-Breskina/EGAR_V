@@ -1,7 +1,7 @@
 package ru.podgoretskaya.accounting.controller;
 
 public class Main {
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        PersonDTO GansDTO = new PersonDTO();
 //        GansDTO.setFirstName("Gans");
 //        GansDTO.setLastName("Male");
@@ -14,8 +14,8 @@ public class Main {
 //        GansService.addSickDays(GansSickDays, GansDTO);
 //        System.out.println(GansDTO);
 //
-//        AccountanService accountanService = new AccountanService();
-//        AccountanDTO accountanDTO = accountanService.jsonCollecting(GansDTO);
+//        AccountingService accountanService = new  AccountingService();
+//        AccountingDTO accountanDTO = accountanService.jsonCollecting(GansDTO);
 //        System.out.println(accountanDTO);
-//    }
+    }
 }

@@ -3,8 +3,9 @@ package ru.podgoretskaya.accounting.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.podgoretskaya.accounting.dto.enams.GradeEnam;
-import ru.podgoretskaya.accounting.dto.enams.PositionEnam;
+import ru.podgoretskaya.accounting.dto.enams.DepartmentEnum;
+import ru.podgoretskaya.accounting.dto.enams.GradeEnum;
+import ru.podgoretskaya.accounting.dto.enams.PositionEnum;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.List;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class PersonDTO  {
     @Schema(description = "фамилия")
     @Size(min = 2, max = 30)
@@ -27,10 +30,22 @@ public class PersonDTO  {
     private String middleName;
 
     @Schema(description = "должность")
-    private PositionEnam position;
+    private PositionEnum position;
+
+    @Schema(description = "отдел")
+    private DepartmentEnum department;
 
     @Schema(description = "категория")
-    private GradeEnam grade;
+    private GradeEnum grade;
+
+    @Schema(description = "номер телефона")
+    private String phoneNumber;
+
+    @Schema(description = "электронный адрес")
+    private String email;
+
+    @Schema(description = "режим работы")
+    private String workingMode;
 
     @Schema(description = "стаж")
     @NonNull
@@ -44,6 +59,9 @@ public class PersonDTO  {
     private final List<Vacation> vacations = new ArrayList<>();
 
     @Schema(description = "отгул")
+    private final List<DayOff> dayOff = new ArrayList<>();
+
+    @Schema(description = "больничный")
     private final List<SickDays> sickDays = new ArrayList<>();
 
 }

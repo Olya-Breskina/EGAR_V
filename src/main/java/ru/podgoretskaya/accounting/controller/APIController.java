@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.podgoretskaya.accounting.dto.AccountingDTO;
 import ru.podgoretskaya.accounting.dto.PersonDTO;
-import ru.podgoretskaya.accounting.dto.SickDays;
 import ru.podgoretskaya.accounting.service.*;
 
 @RestController
@@ -25,17 +24,20 @@ public class APIController {
     private final PersonService personService;
 
 
+
    @PostMapping(value = "/account")
-   @Operation(summary = "бух. расчет")
+   @Operation(summary = "расчет зп")
    public ResponseEntity<AccountingDTO> getOffersPages(@Valid @RequestBody PersonDTO model) {
        log.info("вызов /account. Параметры: \"" + model.toString());
            return new ResponseEntity(accountingService.jsonCollecting(model), HttpStatus.OK);
    }
-    @PostMapping(value = "/personSickDays")
-    @Operation(summary = "добавление больничного")
-    public ResponseEntity<PersonDTO> getOPages(@Valid @RequestBody SickDays model,PersonDTO personModel) {
-        log.info("вызов /personSickDays. Параметры: \"" + model.toString());
-        return new ResponseEntity(personService.addSickDays(model,personModel), HttpStatus.OK);
-    }
+
+
+//    @GetMapping(value = "/personSickDays")
+//    @Operation(summary = "добавление больничного")
+//    public ResponseEntity<PersonDTO> getOPages(@Valid @RequestBody SickDays model,PersonDTO personModel) {
+//        log.info("вызов /personSickDays. Параметры: \"" + model.toString());
+//        return new ResponseEntity(personService.addSickDays(model,personModel), HttpStatus.OK) ;
+//    }
 
 }

@@ -1,5 +1,5 @@
 package ru.podgoretskaya.accounting.dto.enams;
 
-public enum PositionEnam {
+public enum PositionEnum {
     ANALYST, QA, DEVELOPER, DEVOPS
 }
