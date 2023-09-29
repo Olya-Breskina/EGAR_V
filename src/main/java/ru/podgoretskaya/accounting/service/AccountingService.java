@@ -3,7 +3,7 @@ package ru.podgoretskaya.accounting.service;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.podgoretskaya.accounting.dto.AccountingDTO;
 import ru.podgoretskaya.accounting.dto.PersonDTO;
@@ -17,44 +17,54 @@ import java.time.LocalDate;
 @Slf4j
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountingService implements CalculationSalary, DayCalculation {
-//    @Value("${medicalLessThanFiveYears}")
-//    private BigDecimal medicalLessThanFiveYears;
-//    @Value("${medicalFromFiveToEightYears}")
-//    private BigDecimal medicalFromFiveToEightYears;
-//    @Value("${medicalLessThanEightYears}")
-//    private BigDecimal medicalLessThanEightYears;
-//    @Value("${experienceLessThanFiveYears}")
-//    private Double experienceLessThanFiveYears;
-//    @Value("${experienceFromFiveToEightYears}")
-//    private Double experienceFromFiveToEightYears;
-private BigDecimal medicalLessThanFiveYears= BigDecimal.valueOf(0.6);
-    private BigDecimal medicalFromFiveToEightYears= BigDecimal.valueOf(0.8);
-    private BigDecimal medicalLessThanEightYears= BigDecimal.valueOf(1);
-    private Double experienceLessThanFiveYears=5.0;
-    private Double experienceFromFiveToEightYears=8.0;
+public class AccountingService {
+    @Value("${medicalLessThanFiveYears}")
+    private BigDecimal medicalLessThanFiveYears;
+    @Value("${medicalFromFiveToEightYears}")
+    private BigDecimal medicalFromFiveToEightYears;
+    @Value("${medicalLessThanEightYears}")
+    private BigDecimal medicalLessThanEightYears;
+    @Value("${experienceLessThanFiveYears}")
+    private Double experienceLessThanFiveYears;
+    @Value("${experienceFromFiveToEightYears}")
+    private Double experienceFromFiveToEightYears;
+    @Value("${tax}")
+    private BigDecimal tax;
 
     public AccountingDTO jsonCollecting(PersonDTO p) {
         AccountingDTO accountingDTO = new AccountingDTO();
         accountingDTO.setWorkDays(calculationWorkDay(p));
         accountingDTO.setSalaryOfWorkDays(calculationSalary(p));
         accountingDTO.setSalaryOfVacation(calculationSalaryOfVacation(p));
-        accountingDTO.setSalaryOfDayOff(calculationSalaryOfSickDays(p));
+        accountingDTO.setSalaryOfDayOff(calculationSalaryOfVacation(p));
         accountingDTO.setDaysOfVacation(daysOfVacation(p));
-        accountingDTO.setDaysOfDayOff(daysOfSickDays(p));
-        System.out.println(accountingDTO);
+        accountingDTO.setDaysOfDayOff(daysOfDayOff(p));
+        accountingDTO.setSalaryGROSS(p.getSalary());
+        accountingDTO.setSalaryGROSS(gross(p));
+        accountingDTO.setTax(tax(p));
+        accountingDTO.setSalaryOnHandy(salaryOnHandy(p));
         return accountingDTO;
     }
 
-    @Override
-    public BigDecimal calculationSalary(PersonDTO p) {// считает зп за отработанные дни
+    private BigDecimal gross(PersonDTO p) {
+        return calculationSalary(p).add(calculationSalaryOfVacation(p).add(calculationSalaryOfVacation(p)));
+    }
+
+    private BigDecimal tax(PersonDTO p) {
+        return gross(p).multiply(tax);
+    }
+
+    private BigDecimal salaryOnHandy(PersonDTO p) {
+        return gross(p).subtract(tax(p));
+    }
+
+    private BigDecimal calculationSalary(PersonDTO p) {// считает зп за отработанные дни
         BigDecimal salary = salaryOfDay(p);
         long allWorkDay = calculationWorkDay(p);
         return salary.multiply(BigDecimal.valueOf(allWorkDay));
     }
 
-    @Override
-    public BigDecimal calculationSalaryOfSickDays(PersonDTO p) {
+    private BigDecimal calculationSalaryOfSickDays(PersonDTO p) {
         BigDecimal salary = medianSalary(p);
         LocalDate previous = LocalDate.now().minusMonths(1);
         BigDecimal salaryOfSickDays;
@@ -69,16 +79,18 @@ private BigDecimal medicalLessThanFiveYears= BigDecimal.valueOf(0.6);
         return salaryOfSickDays;
     }
 
-    @Override
-    public BigDecimal calculationSalaryOfVacation(PersonDTO p) {
+    private BigDecimal calculationSalaryOfVacation(PersonDTO p) {
         BigDecimal salary = medianSalary(p);
         LocalDate previous = LocalDate.now().minusMonths(1);
         long vacationDays = DayUtils.countOfVacationsOrSickDays(p, previous.getMonth());
         return salary.multiply(BigDecimal.valueOf(vacationDays));
     }
 
-    @Override
-    public long calculationWorkDay(PersonDTO p) {
+    private BigDecimal calculationSalaryOfDayOff(PersonDTO p) {
+        return null;
+    }
+
+    private long calculationWorkDay(PersonDTO p) {
         LocalDate previous = LocalDate.now().minusMonths(1); //предыдущий месяц
         int count = previous.getMonth().maxLength();
         long dayWork = count - DayUtils.countOfDayOff(p, previous.getMonth());
@@ -86,14 +98,14 @@ private BigDecimal medicalLessThanFiveYears= BigDecimal.valueOf(0.6);
         return dayWork;
     }
 
-    @Override
-    public long daysOfSickDays(PersonDTO p) {
+
+    private long daysOfDayOff(PersonDTO p) {
         LocalDate previous = LocalDate.now().minusMonths(1);
         return DayUtils.countOfDayOff(p, previous.getMonth());
     }
 
-    @Override
-    public long daysOfVacation(PersonDTO p) {
+
+    private long daysOfVacation(PersonDTO p) {
         LocalDate previous = LocalDate.now().minusMonths(1);
         return DayUtils.countOfVacationsOrSickDays(p, previous.getMonth());
     }
