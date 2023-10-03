@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @ToString(exclude = "person")
+@Schema(description = "расчетка сотрудника")
 public class AccountingDTO {
     private PersonDTO person;
 

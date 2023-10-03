@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "карточка сотрудника в  бухгалтерии")
 public class PersonDTO {
     @Schema(description = "отпуск")
     private final List<Vacation> vacations = new ArrayList<>();
