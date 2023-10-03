@@ -4,7 +4,6 @@ medicalLessThanEightYears: 1
 experienceLessThanFiveYears: 5.0
 experienceFromFiveToEightYears: 8.0
 ageMax: 70
-phoneNumberLength: 11
 tax: 0.13
 
 logging:

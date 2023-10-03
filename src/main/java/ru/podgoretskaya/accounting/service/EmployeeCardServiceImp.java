@@ -1,5 +1,6 @@
 package ru.podgoretskaya.accounting.service;
 
+import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +19,6 @@ import java.util.regex.Pattern;
 public class EmployeeCardServiceImp implements EmployeeCardService {
     @Value("${ageMax}")
     private int ageMax;
-    @Value("${phoneNumberLength}")
-    private int phoneNumberLength;
 
     @Override
     public EmployeeCardDTO save(EmployeeCardDTO model) {
@@ -36,13 +35,13 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         Matcher firstNameLatLetter = patlatletter.matcher(model.getFirstName());
         if (!firstNameLatLetter.matches()) {
             log.info("проверьте имя" + model.getFirstName());
-            throw new IllegalArgumentException("проверьте ФИО");
+            throw new ValidationException("проверьте ФИО");
         }
         log.debug("фамилия " + model.getLastName());
         Matcher lastNameLatLetter = patlatletter.matcher(model.getLastName());
         if (!lastNameLatLetter.matches()) {
             log.info("проверьте фамилия" + model.getFirstName());
-            throw new IllegalArgumentException("проверьте ФИО");
+            throw new ValidationException("проверьте ФИО");
         }
     }
 
@@ -53,12 +52,12 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         if (age <= ageMax) {
         } else {
             log.info("проверьте дату рождения" + model.getBirthdate());
-            throw new IllegalArgumentException("проверьте дату рождения");
+            throw new ValidationException("проверьте дату рождения");
         }
     }
 
 
-        private void emailCard(EmployeeCardDTO model) {
+    private void emailCard(EmployeeCardDTO model) {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern patEmail = Pattern.compile(regex);
         log.debug("email " + model.getEmail());
@@ -66,7 +65,7 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         if (emailOffers.matches()) {
         } else {
             log.info("неверный email" + model.getEmail());
-            throw new IllegalArgumentException("неверный email");
+            throw new ValidationException("неверный email");
         }
     }
 
@@ -75,10 +74,10 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         Pattern patPhoneNumber = Pattern.compile(regex);
         log.debug("phoneNumber " + model.getPhoneNumber());
         Matcher phoneNumberCard = patPhoneNumber.matcher(model.getPhoneNumber());
-        if (phoneNumberCard.matches() ) {
+        if (phoneNumberCard.matches()) {
         } else {
             log.info("неверный телефонный номер" + model.getEmail());
-            throw new IllegalArgumentException("неверный телефонный номер: без 8, может выглядить 2055550125, 202 555 0125, 202.555.0125 или 202-555-0125");
+            throw new ValidationException("неверный телефонный номер: без 8, может выглядить 2055550125, 202 555 0125, 202.555.0125 или 202-555-0125");
         }
     }
 }
