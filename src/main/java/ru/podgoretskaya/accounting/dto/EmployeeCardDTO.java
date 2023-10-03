@@ -35,14 +35,14 @@ public class EmployeeCardDTO {
     private LocalDate birthdate;
 
     @Schema(description = "должность")
-   // @NotBlank
+    @NotBlank
     private PositionEnum position;
 
     @Schema(description = "отдел")
- //   @NotBlank
+    @NotBlank
     private DepartmentEnum department;
 
-    @Schema(description = "номер телефона")
+    @Schema(description = "номер телефона (без 8, может выглядить 2055550125, 202 555 0125, 202.555.0125 или 202-555-0125")
     @NotBlank
     private String phoneNumber;
 
@@ -51,10 +51,10 @@ public class EmployeeCardDTO {
     private String email;
 
     @Schema(description = "занятость (место работы)")
-  //  @NotBlank
+    @NotBlank
     private OccupancyEnum occupancy;
 
     @Schema(description = "режим работы")
-   // @NotBlank
+    @NotBlank
     private WorkingModeEnum workingMode;
 }

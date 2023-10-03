@@ -11,13 +11,23 @@ public class DayUtils {
     }
 
     public static long countOfDayOff(PersonDTO p, Month month) {
-        //todo это не больничный, это отгул (он оплачивается по средней зп)
         return p.getDayOff().stream()
                 .filter(d -> month.equals(d.getDate().getMonth())).count();
     }
 
-    public static long countOfVacationsOrSickDays(PersonDTO p, Month month) {
+    public static long countOfVacations(PersonDTO p, Month month) {
         return p.getVacations().stream()
+                .filter(d -> month.equals(d.getStart().getMonth()) || month.equals(d.getEnd().getMonth()))
+                .map(v -> {
+                    LocalDate startDay = month.equals(v.getStart().getMonth()) ? v.getStart() : LocalDate.now().withDayOfMonth(1);
+                    LocalDate endDay = month.equals(v.getEnd().getMonth()) ? v.getEnd() : LocalDate.now().withDayOfMonth(month.maxLength());
+                    Period between = Period.between(startDay, endDay);
+                    return Math.abs(between.getDays());
+                })
+                .reduce(0, Integer::sum);
+    }
+    public static long countOfSickDays(PersonDTO p, Month month) {
+        return p.getSickDays().stream()
                 .filter(d -> month.equals(d.getStart().getMonth()) || month.equals(d.getEnd().getMonth()))
                 .map(v -> {
                     LocalDate startDay = month.equals(v.getStart().getMonth()) ? v.getStart() : LocalDate.now().withDayOfMonth(1);

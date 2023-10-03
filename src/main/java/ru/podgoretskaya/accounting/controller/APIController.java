@@ -15,7 +15,6 @@ import ru.podgoretskaya.accounting.dto.EmployeeCardDTO;
 import ru.podgoretskaya.accounting.dto.PersonDTO;
 import ru.podgoretskaya.accounting.service.AccountingService;
 import ru.podgoretskaya.accounting.service.EmployeeCardService;
-import ru.podgoretskaya.accounting.service.PersonService;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +23,6 @@ import ru.podgoretskaya.accounting.service.PersonService;
 @Tag(name = "Учет времени ")
 public class APIController {
     private final AccountingService accountingService;
-    private final PersonService personService;
     private final EmployeeCardService employeeCardService;
 
     @PostMapping(value = "/getCard")
@@ -40,13 +38,4 @@ public class APIController {
         log.info("вызов /account. Параметры: \"" + model.toString());
         return new ResponseEntity(accountingService.jsonCollecting(model), HttpStatus.OK);
     }
-
-
-//    @GetMapping(value = "/personSickDays")
-//    @Operation(summary = "добавление больничного")
-//    public ResponseEntity<PersonDTO> getOPages(@Valid @RequestBody SickDays model,PersonDTO personModel) {
-//        log.info("вызов /personSickDays. Параметры: \"" + model.toString());
-//        return new ResponseEntity(personService.addSickDays(model,personModel), HttpStatus.OK) ;
-//    }
-
 }
