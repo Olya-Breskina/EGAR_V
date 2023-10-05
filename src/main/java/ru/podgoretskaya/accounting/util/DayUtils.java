@@ -24,7 +24,7 @@ public class DayUtils {
                     Period between = Period.between(startDay, endDay);
                     return Math.abs(between.getDays());
                 })
-                .reduce(0, Integer::sum);
+                .reduce(1, Integer::sum);
     }
     public static long countOfSickDays(PersonDTO p, Month month) {
         return p.getSickDays().stream()
@@ -35,6 +35,6 @@ public class DayUtils {
                     Period between = Period.between(startDay, endDay);
                     return Math.abs(between.getDays());
                 })
-                .reduce(0, Integer::sum);
+                .reduce(1, Integer::sum);
     }
 }

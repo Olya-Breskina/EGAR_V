@@ -34,14 +34,14 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         log.debug("имя " + model.getFirstName());
         Matcher firstNameLatLetter = patlatletter.matcher(model.getFirstName());
         if (!firstNameLatLetter.matches()) {
-            log.info("проверьте имя" + model.getFirstName());
-            throw new ValidationException("проверьте ФИО");
+            log.info("проверьте имя " + model.getFirstName());
+            throw new ValidationException("проверьте ФИО ");
         }
         log.debug("фамилия " + model.getLastName());
         Matcher lastNameLatLetter = patlatletter.matcher(model.getLastName());
         if (!lastNameLatLetter.matches()) {
-            log.info("проверьте фамилия" + model.getFirstName());
-            throw new ValidationException("проверьте ФИО");
+            log.info("проверьте фамилия " + model.getFirstName());
+            throw new ValidationException("проверьте ФИО ");
         }
     }
 
@@ -51,8 +51,8 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         int age = date.compareTo(model.getBirthdate());
         if (age <= ageMax) {
         } else {
-            log.info("проверьте дату рождения" + model.getBirthdate());
-            throw new ValidationException("проверьте дату рождения");
+            log.info("проверьте дату рождения " + model.getBirthdate());
+            throw new ValidationException("проверьте дату рождения ");
         }
     }
 
@@ -64,8 +64,8 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         Matcher emailOffers = patEmail.matcher(model.getEmail());
         if (emailOffers.matches()) {
         } else {
-            log.info("неверный email" + model.getEmail());
-            throw new ValidationException("неверный email");
+            log.info("неверный email " + model.getEmail());
+            throw new ValidationException("неверный email ");
         }
     }
 

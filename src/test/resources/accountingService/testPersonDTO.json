@@ -1,0 +1,32 @@
+{
+  "vacations": [
+    {
+      "start": "2023-09-01",
+      "end": "2023-09-12"
+    }
+  ],
+  "dayOff": [
+    {
+      "date": "2023-09-19"
+    }
+  ],
+  "sickDays": [
+    {
+      "start": "2023-09-20",
+      "end": "2023-09-25"
+    }
+  ],
+  "lastName": "gq",
+  "firstName": "ng",
+  "middleName": "g",
+  "birthdate": "2000-10-03",
+  "position": "ANALYST",
+  "department": "ACCOUNTING",
+  "grade": "JUNIOR",
+  "phoneNumber": "string",
+  "email": "string",
+  "occupancy": "REMOTEWORK",
+  "workingMode": "FROM_9_TO_18",
+  "workExperienceCurrent": 1,
+  "salary": 10000
+}

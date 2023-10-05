@@ -1,0 +1,14 @@
+{
+  "person": null,
+  "workDays": 11,
+  "salaryOfWorkDays": 3666.663,
+  "daysOfVacation": 12,
+  "salaryOfVacation": 3999.996,
+  "daysOfDayOff": 1,
+  "salaryOfDayOff": 485.830,
+  "daysOfSickDay": 6,
+  "salaryOfSickDay": 1748.9880,
+  "salaryGROSS": 9901.4770,
+  "tax": 1287.192010,
+  "salaryOnHandy": 8614.284990
+}
