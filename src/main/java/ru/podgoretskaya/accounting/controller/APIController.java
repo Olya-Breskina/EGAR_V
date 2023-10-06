@@ -29,24 +29,14 @@ public class APIController {
     @PostMapping(value = "/getCard")
     @Operation(summary = "заполнение карточки сотрудника для справочника")
     public ResponseEntity<EmployeeCardDTO> getCard(@Valid @RequestBody EmployeeCardDTO model) {
-        try {
             log.info("вызов /getCard. Параметры: \"" + model.toString());
             return new ResponseEntity<>(employeeCardService.save(model), HttpStatus.OK);
-        } catch (HttpMessageNotReadableException e) {
-            log.info("ошибка заполнения формы");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PostMapping(value = "/account")
     @Operation(summary = "расчет зп")
     public ResponseEntity<AccountingDTO> getOffersPages(@Valid @RequestBody PersonDTO model) {
-        try {
         log.info("вызов /account. Параметры: \"" + model.toString());
         return new ResponseEntity(accountingService.jsonCollecting(model), HttpStatus.OK);
-        } catch (HttpMessageNotReadableException e) {
-            log.info("ошибка заполнения формы");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
     }
 }
