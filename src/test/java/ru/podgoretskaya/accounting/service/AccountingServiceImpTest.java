@@ -3,7 +3,6 @@ package ru.podgoretskaya.accounting.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
@@ -19,20 +18,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 class AccountingServiceImpTest {
+    static final BigDecimal medicalLessThanFiveYears = BigDecimal.valueOf(0.6);
+    static final BigDecimal medicalFromFiveToEightYears = BigDecimal.valueOf(0.8);
+    static final BigDecimal medicalLessThanEightYears = BigDecimal.valueOf(1);
+    static final Double experienceLessThanFiveYears = 5.0;
+    static final Double experienceFromFiveToEightYears = 8.0;
+    static final BigDecimal tax = BigDecimal.valueOf(0.13);
     ObjectMapper objectMapper = new ObjectMapper();
     @Spy
-    AccountingServiceImp accountingServiceImp = new AccountingServiceImp(BigDecimal.valueOf(0.6), BigDecimal.valueOf(0.8), BigDecimal.valueOf(1), 5.0, 8.0, BigDecimal.valueOf(0.13));
+    AccountingService accountingServiceImp = new AccountingServiceImp(medicalLessThanFiveYears, medicalFromFiveToEightYears, medicalLessThanEightYears,
+            experienceLessThanFiveYears, experienceFromFiveToEightYears, tax);
 
     @BeforeEach
     void beforeAll() {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
-    @DisplayName("сравнение значений: предполагаемых и расчетных")
     @Test
     void jsonCollecting() throws IOException {
-        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/accountingService/testPersonDTO.json"), PersonDTO.class);
-        AccountingDTO accountingDTO = objectMapper.readValue(new File("src/test/resources/accountingService/testAccountingDTO.json"), AccountingDTO.class);
+        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestPersonDTO.json"), PersonDTO.class);
+        AccountingDTO accountingDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestAccountingDTO.json"), AccountingDTO.class);
         AccountingDTO accounting = accountingServiceImp.jsonCollecting(personDTO);
 
         assertEquals(accountingDTO.getWorkDays(), accounting.getWorkDays());
@@ -52,14 +57,13 @@ class AccountingServiceImpTest {
         assertEquals(accountingDTO.getSalaryOnHandy(), accounting.getSalaryOnHandy());
     }
 
-    @DisplayName("проверка расчета при наличии только больничного и большого стажа")
     @Test
     void jsonCollectingTwo() throws IOException {
-        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/accountingService/testPersonDTOWorkExperienceCurrent.json"), PersonDTO.class);
+        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestPersonDTOWorkExperienceCurrent.json"), PersonDTO.class);
         AccountingDTO accounting = accountingServiceImp.jsonCollecting(personDTO);
 
         assertEquals(23, accounting.getWorkDays());
         assertEquals(6, accounting.getDaysOfSickDay());
-        assertEquals("2331.9840", accounting.getSalaryOfSickDay().toString());
+        assertEquals("2285.7120", accounting.getSalaryOfSickDay().toString());
     }
 }

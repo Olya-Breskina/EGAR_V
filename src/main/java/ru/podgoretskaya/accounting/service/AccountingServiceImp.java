@@ -18,19 +18,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountingServiceImp implements AccountingService {
-    @Value("${medicalLessThanFiveYears}")
+    @Value("${accounting.medical-less-than-five-years}")
     private BigDecimal medicalLessThanFiveYears;
-    @Value("${medicalFromFiveToEightYears}")
+    @Value("${accounting.medical-from-five-to-eight-years}")
     private BigDecimal medicalFromFiveToEightYears;
-    @Value("${medicalLessThanEightYears}")
+    @Value("${accounting.medical-less-than-eight-years}")
     private BigDecimal medicalLessThanEightYears;
-    @Value("${experienceLessThanFiveYears}")
+    @Value("${accounting.experience-less-than-five-years}")
     private Double experienceLessThanFiveYears;
-    @Value("${experienceFromFiveToEightYears}")
+    @Value("${accounting.experience-from-five-to-eight-years}")
     private Double experienceFromFiveToEightYears;
-    @Value("${tax}")
+    @Value("${accounting.tax}")
     private BigDecimal tax;
-
     @Override
     public AccountingDTO jsonCollecting(PersonDTO p) {
         AccountingDTO accountingDTO = new AccountingDTO();

@@ -7,7 +7,7 @@ import java.time.Month;
 import java.time.Period;
 
 public class DayUtils {
-    DayUtils() {
+   private DayUtils() {
     }
 
     public static long countOfDayOff(PersonDTO p, Month month) {

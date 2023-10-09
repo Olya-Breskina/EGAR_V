@@ -1,11 +1,11 @@
-medicalLessThanFiveYears: 0.6
-medicalFromFiveToEightYears: 0.8
-medicalLessThanEightYears: 1
-experienceLessThanFiveYears: 5.0
-experienceFromFiveToEightYears: 8.0
-ageMax: 70
-tax: 0.13
-
+accounting:
+  medical-less-than-five-years: 0.6
+  medical-from-five-to-eight-years: 0.8
+  medical-less-than-eight-years: 1
+  experience-less-than-five-years: 5.0
+  experience-from-five-to-eight-years: 8.0
+  tax: 0.13
+age-max: 70
 logging:
   level:
     ru.podgoretskaya: DEBUG

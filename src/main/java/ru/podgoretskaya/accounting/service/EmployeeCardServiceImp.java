@@ -17,11 +17,11 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeCardServiceImp implements EmployeeCardService {
-    @Value("${ageMax}")
+    @Value("${age-max}")
     private int ageMax;
 
     @Override
-    public EmployeeCardDTO save(EmployeeCardDTO model) {
+    public EmployeeCardDTO validate(EmployeeCardDTO model) {
         firstLastNameCard(model);
         birthdateCard(model);
         emailCard(model);
