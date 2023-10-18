@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.podgoretskaya.accounting.dto.AccountingDTO;
 import ru.podgoretskaya.accounting.dto.CalculationDTO;
@@ -20,6 +21,7 @@ import ru.podgoretskaya.accounting.service.EmployeeCardService;
 @RequiredArgsConstructor
 @Slf4j
 @SuppressWarnings("unused")
+@RequestMapping("/accounting")
 @Tag(name = "Учет времени ")
 public class APIController {
     private final AccountingService accountingService;
