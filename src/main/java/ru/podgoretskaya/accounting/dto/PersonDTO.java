@@ -18,12 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @Schema(description = "карточка сотрудника в  бухгалтерии")
 public class PersonDTO {
-    @Schema(description = "отпуск")
-    private  List<Vacation> vacations = new ArrayList<>();
-    @Schema(description = "отгул")
-    private   List<DayOff> dayOff = new ArrayList<>();
-    @Schema(description = "больничный")
-    private   List<SickDays> sickDays = new ArrayList<>();
     @Schema(description = "фамилия")
     @Size(min = 2, max = 30)
     private String lastName;

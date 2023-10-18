@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.podgoretskaya.accounting.dto.AccountingDTO;
-import ru.podgoretskaya.accounting.dto.PersonDTO;
+import ru.podgoretskaya.accounting.dto.CalculationDTO;
 import ru.podgoretskaya.accounting.util.DayUtils;
 
 import java.math.BigDecimal;
@@ -30,8 +30,9 @@ public class AccountingServiceImp implements AccountingService {
     private Double experienceFromFiveToEightYears;
     @Value("${accounting.tax}")
     private BigDecimal tax;
+
     @Override
-    public AccountingDTO jsonCollecting(PersonDTO p) {
+    public AccountingDTO jsonCollecting(CalculationDTO p) {
         AccountingDTO accountingDTO = new AccountingDTO();
         accountingDTO.setWorkDays(calculationWorkDay(p));
         accountingDTO.setSalaryOfWorkDays(calculationSalary(p));
@@ -48,23 +49,23 @@ public class AccountingServiceImp implements AccountingService {
         return accountingDTO;
     }
 
-    private BigDecimal gross(PersonDTO p) {// грязь
+    private BigDecimal gross(CalculationDTO p) {// грязь
         return calculationSalary(p).add(calculationSalaryOfSickDays(p).add(calculationSalaryOfVacation(p).add(calculationSalaryOfDayOff(p))));
     }
 
-    private BigDecimal tax(PersonDTO p) {//-13%
+    private BigDecimal tax(CalculationDTO p) {//-13%
         return gross(p).multiply(tax);
     }
 
-    private BigDecimal salaryOnHandy(PersonDTO p) {//чистые
+    private BigDecimal salaryOnHandy(CalculationDTO p) {//чистые
         return gross(p).subtract(tax(p));
     }
 
-    private BigDecimal calculationSalary(PersonDTO p) {// считает зп за отработанные дни
+    private BigDecimal calculationSalary(CalculationDTO p) {// считает зп за отработанные дни
         return salaryOfDay(p).multiply(BigDecimal.valueOf(calculationWorkDay(p)));
     }
 
-    private BigDecimal calculationSalaryOfSickDays(PersonDTO p) {//больничный
+    private BigDecimal calculationSalaryOfSickDays(CalculationDTO p) {//больничный
         BigDecimal salary = medianSalary(p);
         if (p.getWorkExperienceCurrent() < experienceLessThanFiveYears) {
             salary = medianSalary(p).multiply(BigDecimal.valueOf(daysOfSickDays(p)).multiply(medicalLessThanFiveYears));
@@ -76,42 +77,42 @@ public class AccountingServiceImp implements AccountingService {
         return salary;
     }
 
-    private BigDecimal calculationSalaryOfVacation(PersonDTO p) {//отпускные
+    private BigDecimal calculationSalaryOfVacation(CalculationDTO p) {//отпускные
         return salaryOfDay(p).multiply(BigDecimal.valueOf(daysOfVacation(p)));
     }
 
-    private BigDecimal calculationSalaryOfDayOff(PersonDTO p) {//отгул
+    private BigDecimal calculationSalaryOfDayOff(CalculationDTO p) {//отгул
         return medianSalary(p).multiply(BigDecimal.valueOf(daysOfDayOff(p)));
     }
 
-    private long calculationWorkDay(PersonDTO p) {
+    private long calculationWorkDay(CalculationDTO p) {
         LocalDate previous = LocalDate.now().minusMonths(1); //предыдущий месяц
         int count = previous.getMonth().maxLength();
         return (count - daysOfDayOff(p) - daysOfSickDays(p) - daysOfVacation(p));
     }
 
-    private long daysOfDayOff(PersonDTO p) {
+    private long daysOfDayOff(CalculationDTO p) {
         LocalDate previous = LocalDate.now().minusMonths(1);
         return DayUtils.countOfDayOff(p, previous.getMonth());
     }
 
-    private long daysOfSickDays(PersonDTO p) {// сколько было больничный
+    private long daysOfSickDays(CalculationDTO p) {// сколько было больничный
         LocalDate previous = LocalDate.now().minusMonths(1);
         return DayUtils.countOfSickDays(p, previous.getMonth());
     }
 
-    private long daysOfVacation(PersonDTO p) {// сколько было отпуска
+    private long daysOfVacation(CalculationDTO p) {// сколько было отпуска
         LocalDate previous = LocalDate.now().minusMonths(1);
         return DayUtils.countOfVacations(p, previous.getMonth());
     }
 
-    private BigDecimal salaryOfDay(PersonDTO p) {//зп день
+    private BigDecimal salaryOfDay(CalculationDTO p) {//зп день
         LocalDate previous = LocalDate.now().minusMonths(1);
         int count = previous.getMonth().maxLength();
         return p.getSalary().divide(BigDecimal.valueOf(count), 3, RoundingMode.HALF_UP);
     }
 
-    private BigDecimal medianSalary(PersonDTO p) {// средняя зп
+    private BigDecimal medianSalary(CalculationDTO p) {// средняя зп
         int previous = LocalDate.now().minusMonths(1).getDayOfYear();
         BigDecimal salaryOfYear = p.getSalary().multiply(BigDecimal.valueOf(12));
         return salaryOfYear.divide(BigDecimal.valueOf(previous), 3, RoundingMode.HALF_UP);

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import ru.podgoretskaya.accounting.dto.EmployeeCardDTO;
 
 import java.io.File;
 import java.io.IOException;

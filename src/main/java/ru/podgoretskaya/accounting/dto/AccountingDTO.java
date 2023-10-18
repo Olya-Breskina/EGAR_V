@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @ToString(exclude = "person")
 @Schema(description = "расчетка сотрудника")
 public class AccountingDTO {
-    private PersonDTO person;
 
     @Schema(description = "отработал в этом месяце")
     private long workDays;

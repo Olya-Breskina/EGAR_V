@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.podgoretskaya.accounting.dto.EmployeeCardDTO;
+import ru.podgoretskaya.accounting.dto.PersonDTO;
 
 import java.time.LocalDate;
 import java.util.regex.Matcher;
@@ -21,7 +21,7 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
     private int ageMax;
 
     @Override
-    public EmployeeCardDTO validate(EmployeeCardDTO model) {
+    public PersonDTO validate(PersonDTO model) {
         firstLastNameCard(model);
         birthdateCard(model);
         emailCard(model);
@@ -29,7 +29,7 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         return model;
     }
 
-    private void firstLastNameCard(EmployeeCardDTO model) {
+    private void firstLastNameCard(PersonDTO model) {
         Pattern patlatletter = Pattern.compile("^[a-zA-Z]{2,30}$");
         log.debug("имя " + model.getFirstName());
         Matcher firstNameLatLetter = patlatletter.matcher(model.getFirstName());
@@ -45,7 +45,7 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         }
     }
 
-    private void birthdateCard(EmployeeCardDTO model) {
+    private void birthdateCard(PersonDTO model) {
         LocalDate date = LocalDate.now();
         log.debug("дата рождения " + model.getBirthdate());
         int age = date.compareTo(model.getBirthdate());
@@ -57,7 +57,7 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
     }
 
 
-    private void emailCard(EmployeeCardDTO model) {
+    private void emailCard(PersonDTO model) {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern patEmail = Pattern.compile(regex);
         log.debug("email " + model.getEmail());
@@ -69,7 +69,7 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         }
     }
 
-    private void phoneNumberCard(EmployeeCardDTO model) {
+    private void phoneNumberCard(PersonDTO model) {
         String regex = "^(\\d{3}[- .]?){2}\\d{4}$";
         Pattern patPhoneNumber = Pattern.compile(regex);
         log.debug("phoneNumber " + model.getPhoneNumber());

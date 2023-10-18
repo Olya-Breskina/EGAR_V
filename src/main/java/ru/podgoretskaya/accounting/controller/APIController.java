@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.podgoretskaya.accounting.dto.AccountingDTO;
-import ru.podgoretskaya.accounting.dto.EmployeeCardDTO;
+import ru.podgoretskaya.accounting.dto.CalculationDTO;
 import ru.podgoretskaya.accounting.dto.PersonDTO;
 import ru.podgoretskaya.accounting.service.AccountingService;
 import ru.podgoretskaya.accounting.service.EmployeeCardService;
@@ -27,15 +27,15 @@ public class APIController {
 
     @PostMapping(value = "/getCard")
     @Operation(summary = "заполнение карточки сотрудника для справочника")
-    public ResponseEntity<EmployeeCardDTO> getCard(@Valid @RequestBody EmployeeCardDTO model) {
-            log.info("вызов /getCard. Параметры: \"" + model.toString());
-            return new ResponseEntity<>(employeeCardService.validate(model), HttpStatus.OK);
+    public ResponseEntity<PersonDTO> getCard(@Valid @RequestBody PersonDTO model) {
+        log.info("\n>>>>>>>>> " + "вызов /getCard. Параметры: \"" + model.toString() + " <<<<<<<<<\n");
+        return new ResponseEntity<>(employeeCardService.validate(model), HttpStatus.OK);
     }
 
     @PostMapping(value = "/account")
     @Operation(summary = "расчет зп")
-    public ResponseEntity<AccountingDTO> getOffersPages(@Valid @RequestBody PersonDTO model) {
-        log.info("вызов /account. Параметры: \"" + model.toString());
+    public ResponseEntity<AccountingDTO> getSettlement(@Valid @RequestBody CalculationDTO model) {
+        log.info("\n>>>>>>>>> " + "вызов /account. Параметры: \"" + model.toString() + " <<<<<<<<<\n");
         return new ResponseEntity(accountingService.jsonCollecting(model), HttpStatus.OK);
     }
 }

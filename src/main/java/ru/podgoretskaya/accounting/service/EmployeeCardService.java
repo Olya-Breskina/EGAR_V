@@ -1,7 +1,7 @@
 package ru.podgoretskaya.accounting.service;
 
-import ru.podgoretskaya.accounting.dto.EmployeeCardDTO;
+import ru.podgoretskaya.accounting.dto.PersonDTO;
 
 public interface EmployeeCardService {
-    EmployeeCardDTO validate(EmployeeCardDTO model);
+    PersonDTO  validate(PersonDTO model);
 }
