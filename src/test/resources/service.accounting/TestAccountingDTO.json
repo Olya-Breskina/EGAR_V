@@ -1,0 +1,13 @@
+{
+  "workDays": 9,
+  "salaryOfWorkDays": 4500.000,
+  "daysOfVacation": 16,
+  "salaryOfVacation": 8000.000,
+  "daysOfDayOff": 1,
+  "salaryOfDayOff": 676.692,
+  "daysOfSickDay": 4,
+  "salaryOfSickDay": 1624.0608,
+  "salaryGROSS": 14800.7528,
+  "tax": 1924.097864,
+  "salaryOnHandy": 12876.654936
+}

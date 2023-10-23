@@ -1,0 +1,13 @@
+accounting:
+  medical-less-than-five-years: 0.6
+  medical-from-five-to-eight-years: 0.8
+  medical-less-than-eight-years: 1
+  experience-less-than-five-years: 5.0
+  experience-from-five-to-eight-years: 8.0
+  tax: 0.13
+age-max: 70
+logging:
+  level:
+    ru.podgoretskaya: DEBUG
+server:
+  port: 8081

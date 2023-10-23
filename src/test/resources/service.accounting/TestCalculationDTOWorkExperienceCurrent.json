@@ -1,0 +1,21 @@
+{
+  "vacations": [
+    {
+      "start": "2023-09-01",
+      "end": "2023-09-15"
+    }
+  ],
+  "dayOff": [
+    {
+      "date": "2023-09-23"
+    }
+  ],
+  "sickDays": [
+    {
+      "start": "2023-09-24",
+      "end": "2023-09-26"
+    }
+  ],
+  "workExperienceCurrent": 10,
+  "salary": 15000
+}
