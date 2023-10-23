@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+import ru.podgoretskaya.accounting.dto.CalculationDTO;
 import ru.podgoretskaya.accounting.dto.PersonDTO;
 
 import java.io.File;
@@ -18,31 +19,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DayUtilsTest {
     static final Month month = Month.SEPTEMBER;
     ObjectMapper objectMapper = new ObjectMapper();
-    PersonDTO personDTO;
+    CalculationDTO calculationDTO;
 
 
     @BeforeEach
     void beforeAll() throws IOException {
         objectMapper.registerModule(new JavaTimeModule());
-        personDTO = objectMapper.readValue(new File("src/test/resources/util/TestPersonDTO.json"), PersonDTO.class);
+        calculationDTO = objectMapper.readValue(new File("src/test/resources/util/TestPersonDTO.json"), CalculationDTO.class);
 
     }
 
     @Test
     void countOfDayOff() throws IOException {
-        long l = DayUtils.countOfDayOff(personDTO, month);
-        assertEquals(2, l);
+        long l = DayUtils.countOfDayOff(calculationDTO, month);
+        assertEquals(1, l);
     }
 
     @Test
     void countOfVacations() throws IOException {
-        long l = DayUtils.countOfVacations(personDTO, month);
-        assertEquals(13, l);
+        long l = DayUtils.countOfVacations(calculationDTO, month);
+        assertEquals(16, l);
     }
 
     @Test
     void countOfSickDays() throws IOException {
-        long l = DayUtils.countOfSickDays(personDTO, month);
-        assertEquals(6, l);
+        long l = DayUtils.countOfSickDays(calculationDTO, month);
+        assertEquals(4, l);
     }
 }

@@ -1,14 +1,13 @@
 {
-  "person": null,
-  "workDays": 11,
-  "salaryOfWorkDays": 3666.663,
-  "daysOfVacation": 12,
-  "salaryOfVacation": 3999.996,
+  "workDays": 9,
+  "salaryOfWorkDays": 4500.000,
+  "daysOfVacation": 16,
+  "salaryOfVacation": 8000.000,
   "daysOfDayOff": 1,
-  "salaryOfDayOff": 476.190,
-  "daysOfSickDay": 6,
-  "salaryOfSickDay": 1714.2840,
-  "salaryGROSS": 9857.1330,
-  "tax": 1281.427290,
-  "salaryOnHandy": 8575.705710
+  "salaryOfDayOff": 676.692,
+  "daysOfSickDay": 4,
+  "salaryOfSickDay": 1624.0608,
+  "salaryGROSS": 14800.7528,
+  "tax": 1924.097864,
+  "salaryOnHandy": 12876.654936
 }

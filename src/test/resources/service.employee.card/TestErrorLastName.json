@@ -1,11 +1,15 @@
 {
-  "lastName": "Mw .w",
-  "firstName": "Gans",
-  "birthdate": "1998-10-03",
+  "lastName": "I v",
+  "firstName": "Ivan",
+  "middleName": " ",
+  "birthdate": "2000-10-23",
   "position": "ANALYST",
-  "department": "FOS",
-  "phoneNumber": "987 456 1230",
-  "email": "qwert@mqil.ru",
-  "occupancy": "HYBRIDWORK",
-  "workingMode": "ALL_DAY_ALL_NIGHT"
+  "department": "ACCOUNTING",
+  "grade": "JUNIOR",
+  "phoneNumber": "9485218612",
+  "email": "iivan@mai.ru",
+  "occupancy": "REMOTEWORK",
+  "workingMode": "FROM_9_TO_18",
+  "workExperienceCurrent": 2,
+  "salary": 15000
 }

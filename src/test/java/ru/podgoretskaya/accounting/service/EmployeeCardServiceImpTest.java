@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import ru.podgoretskaya.accounting.dto.PersonDTO;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,42 +29,42 @@ class EmployeeCardServiceImpTest {
 
     @Test
     void save() throws IOException {
-        EmployeeCardDTO employeeCardDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestEmployeeCardDTO.json"), EmployeeCardDTO.class);
-        EmployeeCardDTO employeeCard = employeeCardServiceImp.validate(employeeCardDTO);
-        assertNotNull(employeeCard);
-        assertEquals(employeeCard,employeeCardDTO);
+        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestPersonDTO.json"), PersonDTO.class);
+        PersonDTO personDTO1 = employeeCardServiceImp.validate(personDTO);
+        assertNotNull(personDTO);
+        assertEquals(personDTO,personDTO1);
 
     }
 
     @Test
     void lastNameBad() throws IOException {
-        EmployeeCardDTO employeeCardDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestErrorLastName.json"), EmployeeCardDTO.class);
+        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestErrorLastName.json"), PersonDTO.class);
         ValidationException validationException = assertThrows(ValidationException.class,
-                () -> employeeCardServiceImp.validate(employeeCardDTO));
+                () -> employeeCardServiceImp.validate( personDTO));
         assertEquals("проверьте ФИО ", validationException.getMessage());
     }
 
     @Test
     void lastAgeBad() throws IOException {
-        EmployeeCardDTO employeeCardDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestAgeMax.json"), EmployeeCardDTO.class);
+        PersonDTO personDTO  = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestAgeMax.json"),  PersonDTO.class);
         ValidationException validationException = assertThrows(ValidationException.class,
-                () -> employeeCardServiceImp.validate(employeeCardDTO));
+                () -> employeeCardServiceImp.validate(personDTO));
         assertEquals("проверьте дату рождения ", validationException.getMessage());
     }
 
     @Test
     void emailBad() throws IOException {
-        EmployeeCardDTO employeeCardDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestEmailBad.json"), EmployeeCardDTO.class);
+        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestEmailBad.json"),  PersonDTO.class);
         ValidationException validationException = assertThrows(ValidationException.class,
-                () -> employeeCardServiceImp.validate(employeeCardDTO));
+                () -> employeeCardServiceImp.validate(personDTO));
         assertEquals("неверный email ", validationException.getMessage());
     }
 
     @Test
     void phoneNumberBad() throws IOException {
-        EmployeeCardDTO employeeCardDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestPhoneNumberBad.json"), EmployeeCardDTO.class);
+        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.employee.card/TestPhoneNumberBad.json"),  PersonDTO.class);
         ValidationException validationException = assertThrows(ValidationException.class,
-                () -> employeeCardServiceImp.validate(employeeCardDTO));
-        assertEquals("неверный телефонный номер: без 8, может выглядить 2055550125, 202 555 0125, 202.555.0125 или 202-555-0125", validationException.getMessage());
+                () -> employeeCardServiceImp.validate(personDTO));
+        assertEquals("неверный телефонный номер: без 8, может выглядеть 2055550125, 202 555 0125, 202.555.0125 или 202-555-0125", validationException.getMessage());
     }
 }

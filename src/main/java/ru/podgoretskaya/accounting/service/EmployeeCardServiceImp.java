@@ -77,7 +77,7 @@ public class EmployeeCardServiceImp implements EmployeeCardService {
         if (phoneNumberCard.matches()) {
         } else {
             log.info("неверный телефонный номер" + model.getEmail());
-            throw new ValidationException("неверный телефонный номер: без 8, может выглядить 2055550125, 202 555 0125, 202.555.0125 или 202-555-0125");
+            throw new ValidationException("неверный телефонный номер: без 8, может выглядеть 2055550125, 202 555 0125, 202.555.0125 или 202-555-0125");
         }
     }
 }

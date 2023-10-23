@@ -27,20 +27,24 @@ class APIControllerTest {
     @Order(1)
     @Test
     void getCard() throws Exception {
-        mockMvc.perform(post("/getCard")
+        mockMvc.perform(post("/accounting/getCard")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "lastName": "Mww",
-                                  "firstName": "Gans",
-                                  "birthdate": "1998-10-03",
-                                  "position": "ANALYST",
-                                  "department": "FOS",
-                                  "phoneNumber": "987 456 1230",
-                                  "email": "qwert@mqil.ru",
-                                  "occupancy": "HYBRIDWORK",
-                                  "workingMode": "ALL_DAY_ALL_NIGHT"
-                                }
+                                   "lastName": "Ivanov",
+                                   "firstName": "Ivan",
+                                   "middleName": " ",
+                                   "birthdate": "2000-10-23",
+                                   "position": "ANALYST",
+                                   "department": "ACCOUNTING",
+                                   "grade": "JUNIOR",
+                                   "phoneNumber": "9485218612",
+                                   "email": "iivan@mai.ru",
+                                   "occupancy": "REMOTEWORK",
+                                   "workingMode": "FROM_9_TO_18",
+                                   "workExperienceCurrent": 2,
+                                   "salary": 15000
+                                 }
                                 """))
                 .andExpect(status().isOk());
     }
@@ -49,41 +53,30 @@ class APIControllerTest {
     @Order(2)
     @Test
     void getOffersPages() throws Exception {
-        mockMvc.perform(post("/account")
+        mockMvc.perform(post("/accounting/account")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                   "vacations": [
-                                     {
-                                       "start": "2023-09-01",
-                                       "end": "2023-09-12"
-                                     }
-                                   ],
-                                   "dayOff": [
-                                     {
-                                       "date": "2023-09-19"
-                                     }
-                                   ],
-                                   "sickDays": [
-                                     {
-                                       "start": "2023-09-20",
-                                       "end": "2023-09-25"
-                                     }
-                                   ],
-                                   "lastName": "gq",
-                                   "firstName": "ng",
-                                   "middleName": "g",
-                                   "birthdate": "2000-10-03",
-                                   "position": "ANALYST",
-                                   "department": "ACCOUNTING",
-                                   "grade": "JUNIOR",
-                                   "phoneNumber": "string",
-                                   "email": "string",
-                                   "occupancy": "REMOTEWORK",
-                                   "workingMode": "FROM_9_TO_18",
-                                   "workExperienceCurrent": 1,
-                                   "salary": 10000
-                                 }
+                                    "vacations": [
+                                      {
+                                        "start": "2023-09-01",
+                                        "end": "2023-09-15"
+                                      }
+                                    ],
+                                    "dayOff": [
+                                      {
+                                        "date": "2023-09-23"
+                                      }
+                                    ],
+                                    "sickDays": [
+                                      {
+                                        "start": "2023-09-24",
+                                        "end": "2023-09-26"
+                                      }
+                                    ],
+                                    "workExperienceCurrent": 2,
+                                    "salary": 15000
+                                  }
                                 """))
                 .andExpect(status().isOk());
     }

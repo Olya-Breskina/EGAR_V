@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import ru.podgoretskaya.accounting.dto.AccountingDTO;
+import ru.podgoretskaya.accounting.dto.CalculationDTO;
 import ru.podgoretskaya.accounting.dto.PersonDTO;
 
 import java.io.File;
@@ -36,9 +37,9 @@ class AccountingServiceImpTest {
 
     @Test
     void jsonCollecting() throws IOException {
-        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestPersonDTO.json"), PersonDTO.class);
+        CalculationDTO calculationDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestCalculation.json"), CalculationDTO.class);
         AccountingDTO accountingDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestAccountingDTO.json"), AccountingDTO.class);
-        AccountingDTO accounting = accountingServiceImp.jsonCollecting(personDTO);
+        AccountingDTO accounting = accountingServiceImp.jsonCollecting(calculationDTO);
 
         assertEquals(accountingDTO.getWorkDays(), accounting.getWorkDays());
         assertEquals(accountingDTO.getSalaryOfWorkDays(), accounting.getSalaryOfWorkDays());
@@ -59,11 +60,11 @@ class AccountingServiceImpTest {
 
     @Test
     void jsonCollectingTwo() throws IOException {
-        PersonDTO personDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestPersonDTOWorkExperienceCurrent.json"), PersonDTO.class);
-        AccountingDTO accounting = accountingServiceImp.jsonCollecting(personDTO);
+        CalculationDTO calculationDTO = objectMapper.readValue(new File("src/test/resources/service.accounting/TestCalculationDTOWorkExperienceCurrent.json"), CalculationDTO.class);
+        AccountingDTO accounting = accountingServiceImp.jsonCollecting(calculationDTO);
 
-        assertEquals(23, accounting.getWorkDays());
-        assertEquals(6, accounting.getDaysOfSickDay());
-        assertEquals("2285.7120", accounting.getSalaryOfSickDay().toString());
+        assertEquals(9, accounting.getWorkDays());
+        assertEquals(4, accounting.getDaysOfSickDay());
+        assertEquals("2706.768", accounting.getSalaryOfSickDay().toString());
     }
 }

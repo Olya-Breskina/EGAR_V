@@ -21,7 +21,7 @@ public class DayUtils {
                 .map(v -> {
                     LocalDate startDay = month.equals(v.getStart().getMonth()) ? v.getStart() : LocalDate.now().withDayOfMonth(1);
                     LocalDate endDay = month.equals(v.getEnd().getMonth()) ? v.getEnd() : LocalDate.now().withDayOfMonth(month.maxLength());
-                    Period between = Period.between(startDay, endDay);
+                    Period between = Period.between(startDay.minusDays(1), endDay.plusDays(1));
                     return Math.abs(between.getDays());
                 })
                 .reduce(0, Integer::sum);
@@ -33,7 +33,7 @@ public class DayUtils {
                 .map(v -> {
                     LocalDate startDay = month.equals(v.getStart().getMonth()) ? v.getStart() : LocalDate.now().withDayOfMonth(1);
                     LocalDate endDay = month.equals(v.getEnd().getMonth()) ? v.getEnd() : LocalDate.now().withDayOfMonth(month.maxLength());
-                    Period between = Period.between(startDay, endDay);
+                    Period between = Period.between(startDay.minusDays(1), endDay.plusDays(1));
                     return Math.abs(between.getDays());
                 })
                 .reduce(0, Integer::sum);
