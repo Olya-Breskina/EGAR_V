@@ -2,9 +2,9 @@ version: '3.9'
 services:
   ComputerStore:
     container_name: Accounting
-#    image: accounting
+    image: accounting
     build:
-      context: .
-      dockerfile: Dockerfile
+        context: .
+        dockerfile: Dockerfile
     ports:
-      - 8081:8081
+        - 8081:8081
